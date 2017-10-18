@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export APP=Connected-Car
-export APPLOWERCASE=connected-car
+export APP=ConnectedCar
+export APPLOWERCASE=connectedcar
 
 export DCOS_URL=$(dcos config show core.dcos_url)
 echo DCOS_URL: $DCOS_URL
@@ -34,7 +34,7 @@ sed -ie "s@\$PINNEDNODE@$PRIVATENODEIP@g;" gitlab.json
 
 sed  '/gitlab/d' /etc/hosts >./hosts
 echo "$PUBLICNODEIP gitlab.$APPLOWERCASE.mesosphere.io" >>./hosts
-echo We are going to add "$PUBLICNODEIP gitlab.$APPLOWERCASE.mesosphere.io" to your /etc/host. Therefore we need your local password.
+echo We are going to add "$PUBLICNODEIP gitlab.$APPLOWERCASE.mesosphere.io" to your /etc/hosts. Therefore we need your local password.
 sudo mv hosts /etc/hosts
 
 echo Installing gitlab...
