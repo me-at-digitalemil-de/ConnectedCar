@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<link rel="stylesheet" type="text/css" href="stylesheets/ccstyle.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Mesosphere DC/OS AppStudio</title>
+
+</head>
+<body bgcolor="#FFFFFF">
+	<div id="alldiv">
+<div class="wrapper">
+  <div class="box content"><iframe class="contentframe" id='ifr' frameborder="0" scrolling="no" width="550" height="400"></iframe></div>
+  <div class="box sidebar">
+    <div id="home" class="innerbox" onclick='document.getElementById("ifr").src="home.html";setActiveLink(this.id);'>Home</div>
+    <div id="dashboard" class="innerbox" onclick='document.getElementById("ifr").src="dashboard.html";setActiveLink(this.id);'>Dashboard</div> 
+    <div id="cql" class="innerbox" onclick='document.getElementById("ifr").src="cassandra.html";setActiveLink(this.id);'>Execute CQL</div>
+    <div id="kafka" class="innerbox" onclick='document.getElementById("ifr").src="kafkadata.html";setActiveLink(this.id);'>Kafka</div>
+    <div id="architecture" class="innerbox" onclick='document.getElementById("ifr").src="http://draw.io?url=http://digitalemil.de/DCOS-AppStudio.xml";setActiveLink(this.id);'>View Architecture</div>
+    <div id="inputdata" class="innerbox" onclick='document.getElementById("ifr").src="data.html";setActiveLink(this.id);'>Input Data</div>
+    <div id="zeppelin" class="innerbox" onclick='document.getElementById("ifr").src="zeppelinframe.html";setActiveLink(this.id);'>Zeppelin</div>
+    <div id="zeppelindownload" class="innerbox" onclick='document.getElementById("ifr").src="zeppelin.html";setActiveLink(this.id);'>Download Notebook</div>
+    <div id="load" class="innerbox" onclick='document.getElementById("ifr").src="loaderinframe.html";setActiveLink(this.id);'>Loader</div>
+   	<div id="secret" class="innerbox" onclick="alert('Secret: '+'<%= secret %>')">Secret</div>
+  </div>
+</div>
+	</div>
+
+	<script>
+		var l = document.getElementById('home');
+		l.click();
+		function setActiveLink(setActive){
+		    console.log('Testing console');
+		    console.log('setActive', setActive);
+		    var links = document.querySelectorAll(".innerbox, .active");
+		    Array.prototype.map.call(links, function(e) {
+	            e.className = "innerbox";
+		    console.log('eid', e.id);
+       		    if (e.id == setActive){
+            		e.className = "active";
+			console.log('eclassinif',e.className);
+		    }
+    		    })
+		}
+	</script>
+
+</body>
+</html>

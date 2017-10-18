@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<link rel="stylesheet" type="text/css" href="stylesheets/ccstyle.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Mesosphere DC/OS AppStudio</title>
+
+</head>
+<body bgcolor="#fff">
+
+<div id="alldiv" class="Aligner">
+		<div id="text" class="Aligner-item">
+			<input id="filter" type="text" style="width: 79%;height: 5%;font-size: 100%;background-color: #F3F3F5;"</input>
+			<button id="startbutton" onclick="toggleStream()";" style="width: 20%;height: 5%;font-size: 100%;background-color: #F3F3F5;">Start</button><p>			
+			<textarea rows="40" id="messageBox" style="width: 100%;height:75%;font-size: 100%;background-color: #F3F3F5;"></textarea><p>
+<button onclick="document.getElementById('messageBox').value='';" style="width: 20%;height: 5%;font-size: 100%;background-color: #F3F3F5;">Clear</button><p>
+		</div>
+	</div>
+
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script src='http://<%= publicnode %>:10500/socket.io/socket.io.js'></script>
+<script>
+  var ispaused = 1;
+  function toggleStream() {
+      if(ispaused == 1){
+	  $('#startbutton').html("Pause"); 
+          ispaused = 0;
+      }else{
+	  $('#startbutton').html("Start"); 
+	  ispaused = 1;
+      } 
+  } 
+  
+  var socket = io('http://<%= publicnode %>:10500');
+  socket.on('chat message', function(msg){
+      if(ispaused == 0){      
+          var currentMsg = JSON.stringify(msg);
+          var currentTxtArea = $('#messageBox').val();
+          if ($('#filter').val()){
+	      if(currentMsg.indexOf($('#filter').val()) !== -1){ 
+      	  	  $('#messageBox').val(currentMsg+"\n\n\n"+currentTxtArea);
+      	      } 
+          }else{
+	      $('#messageBox').val(currentMsg+"\n\n\n"+currentTxtArea);
+          }
+          if(currentTxtArea.length > 100000){
+	      currentTxtArea = currentTxtArea.substring(0,1000);
+              $('#messageBox').val(currentTxtArea);  
+          }
+        }
+    });
+</script>
+
+</body>
+</html>

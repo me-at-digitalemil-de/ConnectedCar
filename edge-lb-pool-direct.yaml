@@ -1,0 +1,49 @@
+---
+pools:
+  - name: connected-car
+    count: 1
+    haproxy:
+      frontends:
+        - bindPort: 80
+          protocol: HTTP
+          linkBackend:
+            defaultBackend: connected-car-ui
+        - bindPort: 10500
+          protocol: TCP
+          linkBackend:
+            defaultBackend: connected-car-socket
+        - bindPort: 10339
+          protocol: HTTP
+          linkBackend:
+            defaultBackend: kibana
+      backends:
+        - name: connected-car-ui
+          protocol: HTTP
+          servers:
+            - framework:
+                value: marathon
+              task:
+                value: ui.management.dcosappstudio-connectedcar
+              port:
+                name: connected-car-ui
+        - name: connected-car-socket
+          protocol: TCP
+          servers:
+            - framework:
+                value: marathon
+              task:
+                value: ui.management.dcosappstudio-connectedcar
+              port:
+                name: connected-car-socket
+        - name: kibana
+          protocol: HTTP
+          miscStrs:
+            - reqrep ^(.*?)/service/kibana(.*)     \1\2
+          servers:
+            - framework:
+                value: marathon
+              task:
+                value: ^kibana.*$
+                match: REGEX
+              port:
+                name: kibana

@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<link rel="stylesheet" type="text/css" href="stylesheets/ccstyle.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Mesosphere DC/OS AppStudio</title>
+
+</head>
+<body bgcolor="#fff">
+	<div id="alldiv" class="Aligner">
+		<div id="text" class="Aligner-item">
+			<input id="cql" type="text" style="width: 79%;height: 5%;font-size: 100%;background-color: #F3F3F5;" value="Select * from <%= keyspace %>.<%= table %>"></input>
+			<button onclick="doExec()" style="width: 20%;height: 5%;font-size: 100%;background-color: #F3F3F5;">Execute</button><p> 
+			<textarea rows="40" id="data" style="width: 100%;height:75%;font-size: 100%;background-color: #F3F3F5;" data-role="none"></textarea><p>
+			<button onclick="document.getElementById('data').value='';" style="width: 20%;height: 5%;font-size: 100%;background-color: #F3F3F5;">Clear</button><p> 
+		</div>
+	</div>
+	<script>
+		function doExec() { 
+		let cql= document.getElementById("cql").value;
+    		postJSON(cql);
+  		}
+
+  		function postJSON(cql) {
+                        if (window.XMLHttpRequest) {
+                                try {
+                                        req = new XMLHttpRequest();
+                                } catch (e) {
+                                        req = false;
+                                }
+                                // branch for IE/Windows ActiveX version
+                        } else {
+                                if (window.ActiveXObject) {
+                                        try {
+                                                req = new ActiveXObject("Msxml2.XMLHTTP");
+                                        } catch (e) {
+                                                try {
+                                                        req = new ActiveXObject("Microsoft.XMLHTTP");
+                                                } catch (e) {
+                                                        req = false;
+                                                }
+                                        }
+                                }
+                        }
+                        if (req) {
+				
+                                req.onreadystatechange = function() {
+					if (req.readyState == 4) {
+						document.getElementById("data").value= req.responseText;
+					}
+				}
+                                req.open("GET", "cql?cmd="+cql, true);
+                                req.setRequestHeader("Content-type", "application/json"); 
+								req.send();                      
+					            //req.send(json);
+                        } else {
+                                alert("req== false");
+                        }
+                }
+
+				function cqlSent() {
+                        console.log("JSON sent: "+json);
+                }
+  </script>
+
+</body>
+</html>

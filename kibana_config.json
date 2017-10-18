@@ -1,0 +1,13 @@
+{
+  "service": {
+    "name": "kibana",
+    "user": "nobody",
+    "beta-optin": true
+  },
+  "kibana": {
+    "xpack_enabled": true,
+    "elasticsearch_url": "http://coordinator.elastic.l4lb.thisdcos.directory:9200",
+    "user": "kibana",
+    "password": "changeme"
+  }
+}

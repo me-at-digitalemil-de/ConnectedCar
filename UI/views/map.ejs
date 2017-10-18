@@ -1,0 +1,237 @@
+<html>
+<head>
+	<title>DCOSAppStudio</title>
+<script
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1HarMVY68xeAypKfrIH2Lka7YdJglZm4&v=3.exp&sensor=false"></script>
+<script>
+
+	// Do not modify the following lines!
+	var LOCATIONS = new Array();
+	var AUTOREFRESH = false;
+	var SOLRQUERY = "";
+	var FORSOLR = true;
+	var SHOWQUERY = true;
+	var alllocs = "";
+	var autorefresh = false;
+	var forSolr = false;
+	var solrQuery = "";
+	//var circles = new Array();
+	var markers= new Array();
+	var map;
+	var mapoptions;
+	
+	
+	var iimap = new Array();
+//	var circle;
+	var marker;
+
+	function updateLocations() {
+		if (req.readyState == 4 && req.status == 200) {
+			alllocs = JSON.parse(req.responseText);
+			document.getElementById("maxoffset").innerHTML="Kafka Offset (max= "+alllocs.maxoffset+")";
+			iimap = new Array(alllocs.locations.length);
+			for (var l = 0; l < alllocs.locations.length; l++) {
+				iimap[l] = {
+					center : new google.maps.LatLng(
+							alllocs.locations[l].latitude,
+							alllocs.locations[l].longitude),
+					n : Math.min(32, alllocs.locations[l].n) * 1000
+				};
+			}
+
+			for (var i = 0; i < markers.length; i++) {
+			//	circles[i].setMap(null);
+				markers[i].setMap(null);
+			//	circles[i].remove();
+			}
+
+			for (var i = 0; i < iimap.length; i++) {
+			/*
+				var options = {
+					strokeColor : '#FF0000',
+					strokeOpacity : 0.8,
+					strokeWeight : 2,
+					fillColor : '#FF0000',
+					fillOpacity : 0.35,
+				//	map : map,
+					map : null,
+		
+					center : iimap[i].center,
+					radius : iimap[i].n * 20
+				};
+				*/
+			//	circle = new google.maps.Circle(options);
+				var myLatlng = new google.maps.LatLng(alllocs.locations[i].latitude,alllocs.locations[i].longitude);
+				
+				marker= new google.maps.Marker({
+   				 position: myLatlng,
+    			 title:""
+				});
+				marker.setMap(map);
+				markers[i]= marker;
+				//alert(marker);
+			//	circles[i] = circle;
+			}
+
+			setTimeout(hitDataUrl, 2000);
+		}
+	}
+
+	function hitDataUrl() {
+		if (window.XMLHttpRequest) {
+			try {
+				req = new XMLHttpRequest();
+			} catch (e) {
+				req = false;
+			}
+			// branch for IE/Windows ActiveX version
+		} else {
+			if (window.ActiveXObject) {
+				try {
+					req = new ActiveXObject("Msxml2.XMLHTTP");
+				} catch (e) {
+					try {
+						req = new ActiveXObject("Microsoft.XMLHTTP");
+					} catch (e) {
+						req = false;
+					}
+				}
+			}
+		}
+		if (req) {
+			req.onreadystatechange = updateLocations;
+			req.open("GET", "mapdata", true);
+			req.send("");
+		} else {
+			alert("req== false");
+		}
+	}
+
+	function setOffset(os) {
+		if (window.XMLHttpRequest) {
+			try {
+				req = new XMLHttpRequest();
+			} catch (e) {
+				req = false;
+			}
+			// branch for IE/Windows ActiveX version
+		} else {
+			if (window.ActiveXObject) {
+				try {
+					req = new ActiveXObject("Msxml2.XMLHTTP");
+				} catch (e) {
+					try {
+						req = new ActiveXObject("Microsoft.XMLHTTP");
+					} catch (e) {
+						req = false;
+					}
+				}
+			}
+		}
+		if (req) {
+			console.log(os);
+			req.onreadystatechange = function() {};
+			req.open("GET", "setoffset?offset="+os, true);
+			req.send("");
+		} else {
+			alert("req== false");
+		}
+	}
+
+	function initialize() {
+		var id = document.getElementById("all");
+		w = window.innerWidth;
+		h = window.innerHeight;
+		var perfcor = 0;
+		scale = Math.min(w / 1024, h / 640);
+		sX = w / 1024;
+		sY = h / 768;
+	
+
+		var bgimg = new Image();
+		bgimg.src = "images/bg.jpg";
+		bgimg.setAttribute("id", "bg");
+		id.appendChild(bgimg);
+
+		var bgh = (768 * window.innerWidth / 1024);
+		bgimg.setAttribute("style",
+				"position:absolute; top:0px; left:0px; width: "
+						+ window.innerWidth + "px; height: " + bgh + "px;");
+
+		id = document.getElementById("map_canvas");
+		id.setAttribute("style", "position:absolute; top:"
+				+ ((128 * window.innerWidth / 1024) + 32 * sY) + "px; left:"
+				+ (512 * (1 - 0.7) * sX) + "px; width: " + (1024 * sX * 0.7)
+				+ "px; height: " + (768 * sY * 0.6) + "px;");
+
+		id = document.getElementById("q");
+		id
+				.setAttribute(
+						"style",
+						"position:absolute; top:"
+								+ (32
+										* sY
+										+ ((128 * window.innerWidth / 1024) + 32 * sY) + (768 * sY * 0.6))
+								+ "px; left:" + (512 * (1 - 0.7) * sX)
+								+ "px; width: " + (1024 * sX * 0.7)
+								+ "px; height: " + (768 * sY * 0.6) + "px;");
+
+		var z = Math.floor(1.5 * sX);
+		mapOptions = {
+			zoom : 2,
+			center : new google.maps.LatLng(37.09024, -0.712891),
+			mapTypeId : google.maps.MapTypeId.TERRAIN
+		};
+
+		map = new google.maps.Map(document.getElementById('map_canvas'),
+				mapOptions);
+		map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+/*
+		for (var i = 0; i < iimap.length; i++) {
+			var options = {
+				strokeColor : '#FF0000',
+				strokeOpacity : 0.5,
+				strokeWeight : 1,
+				fillColor : '#FF0000',
+				fillOpacity : 0.35,
+				map : map,
+				center : iimap[i].center,
+				radius : iimap[i].n * 20
+			};
+			circle = new google.maps.Circle(options);
+			circles[i] = circle;
+		}
+		*/
+	}
+	
+	hitDataUrl();
+
+	function execQuery(q) {
+		var q= document.getElementById("offset").value;
+		setOffset(q);
+	}
+</script>
+</head>
+<body onload="initialize()">
+	<div id="all" style="position: absolute; top: 0px; left: 0px;"></div>
+	<center>
+		<p>
+			<p>
+
+	<h2  style="top: 80px; font-size: 24px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif"><%= name %></h2>
+	</center>
+	<div id="map_canvas"></div>
+	<div id="q" >
+		<h3 id="maxoffset" style="font-size: 24px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Kafka Offset:</h3> 
+		<input id="offset" type="text" style="width: 20%; font-size: 24px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" value="0"></input>
+				
+					<button onclick="execQuery()" style="width: 20%; font-size: 24px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Set</button>  <p> 
+				
+		
+	</div>
+	<script>
+		setTimeout(hitDataUrl, 2000);
+	</script>
+</body>
+</html>
+

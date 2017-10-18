@@ -1,0 +1,90 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <style>
+ .custom-file-input {
+        color: black;/* This is to take away the browser text for file uploading*/
+        /* Carry on with the style you want 
+        background: url(../img/doc-o.png);*/
+        background-size: 100%;
+        cursor: pointer;
+    }
+	</style>
+<title>Mesosphere DC/OS AppStudio</title>
+
+</head>
+<body bgcolor="#FFFFFF">
+	<div id="alldiv">
+		<div>
+			<img id="bg" style="position: absolute; top: 0px; left: 0px;"
+				src=""> </img>
+		</div>
+		<iframe id="hidden-iframe" name="hidden-iframe"></iframe>
+		<div id="text" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+			<h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+				<center>
+					<p>
+					Please upload a JPG with a width of 1024 and height of 768 pixel.
+					<p>
+					<form  target="hidden-iframe" method="post" style="width: 360px; font-size: 24px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif"
+					enctype="multipart/form-data">
+				<!--
+						<label for="file" class="custom-file-input" style="width: 360px; font-size: 24px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Select Image</label>
+					-->
+					<button  type="button" onclick="document.getElementById('file').click();" style="width: 360px; font-size: 24px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Select Image</button>
+					
+					<input  onchange="fileChoosen()" id="file" style="display:none; width:360px; font-size: 24px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" type="file" name="Image"/>
+					<p> 
+					<div id="filename" style="visibility:hidden;">___</div>
+					<p>
+					<button onclick="setTimeout(clearButton, 1000);" id="uploadbutton" disabled for="upload" style="width: 360px; font-size: 24px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Upload Image</button>
+					<input onchange='' id="upload" style="display:none; width: 360px; font-size: 24px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" type="submit" value="Upload Image"/>
+				</form>
+				<button id="next" disabled onclick="location.href='/'" style="width: 360px; font-size: 24px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Back</button>  
+			</center>
+			</h2>
+			</br>
+		</div>
+	</div>
+	<script>
+		var w = window.innerWidth;
+		var h = window.innerHeight;
+		var sX = w / 1024;
+		var sY = h / 768;
+		var bgh = (768 * window.innerWidth / 1024);
+		var fields = 1;
+		var totalfields= 1;
+		var todelete = 1;
+
+
+		var bg = document.getElementById("bg");
+		bg.setAttribute("style",
+				"position:absolute; top:0px; left:0px; width: "
+						+ window.innerWidth + "px; height: " + bgh + "px;");
+		var text = document.getElementById("text");
+		text.setAttribute("style", "style=font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; position:absolute; top:" + (320 * sY)
+				+ "px; left:" + (((960 - 512 - 140) / 2) * sX) + "px; width: "
+				+ (512 * sX * 1.5) + "px; height: " + (256 * sY * 1.5) + "px;");
+		
+		function fileChoosen() {
+			let file= document.getElementById("file").value;
+			let fn= file.toString();
+			document.getElementById("filename").innerHTML= fn.substring(fn.lastIndexOf('\\')+1);
+			document.getElementById("filename").setAttribute("style", "visibility: visible;");
+			document.getElementById("uploadbutton").disabled= false;
+		}
+		function clearButton() {
+				document.getElementById('next').disabled= false
+				
+			};
+		function mysubmit(e) {
+			log.submit();
+		e.preventDefault();
+	//		post();
+		}
+
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+EDIT ON
+ body {
+  margin: 40px;
+}
+
+.box {
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  padding: 40px;
+  font-size: 150%;
+  cursor:hand;
+}
+.box:hover {
+  color:black;
+  background-color: #ccc;
+}
+
+
+.wrapper {
+        display: grid;
+    grid-gap: 10px;
+        grid-template-rows: repeat(minmax(100px,1fr),minmax(100px,1fr));
+    }
+
+.top-margin {
+     margin-top:10px;
+ }

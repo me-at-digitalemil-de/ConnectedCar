@@ -1,0 +1,7 @@
+#dcos marathon app remove /dcosappstudio-connectedcar/management/ui
+docker build --no-cache -t jhollingerdcos/connected_car_ui_v$1 .
+docker push jhollingerdcos/connected_car_ui_v$1
+#sed "s/VERSION_TOKEN/v$1/g" <./ui.json.template > ui.json
+#sleep 15
+#dcos marathon app add ui.json
+

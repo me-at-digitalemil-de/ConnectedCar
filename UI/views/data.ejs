@@ -1,0 +1,140 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<link rel="stylesheet" type="text/css" href="stylesheets/ccstyle.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Mesosphere DC/OS AppStudio</title>
+
+</head>
+<body bgcolor="#FFFFFF">
+	<div id="alldiv" class="centerDiv">
+		<div id="text" class="centerDiv">
+			<p>
+			<%- fields %>
+		    <p>
+			<button onclick="doMySubmit()" style="width: 20%;height: 5%;font-size: 100%;background-color: #F3F3F5;">Enter</button>  <p> 
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+		var fields = 1;
+		var totalfields= 1;
+		var todelete = 1;
+		var showLocation= <%= showLocation %>;
+		var latitude="";
+		var longitude= "";
+		
+	    	var loc= document.getElementById("location");
+		var ts= document.getElementById("timestamp");
+
+		$.getJSON("http://ip-api.com/json", function(result){
+			console.log(result);
+			$.each(result, function (i, fb) {
+			    if(i.valueOf() ==='lat'){
+				latitude = fb;
+			    }
+			    if(i.valueOf() === 'lon'){
+				longitude = fb;
+			    }
+      			    console.log(fb);
+    			});
+			var locationStr = latitude + "," + longitude;
+                	$('#location').val(locationStr);
+		});
+
+
+		function setEventTime() {
+			var d= new Date();
+			let day= d.getUTCDate();
+			let daystring= ""+day;
+			
+  			if(day< 10)
+    				daystring="0"+daystring;
+  			let month= d.getUTCMonth()+1;
+  			let monthstring= ""+month;
+  			if(month< 10)
+    				monthstring="0"+monthstring;
+            		
+		        let hour= d.getUTCHours();
+			let hourstring= ""+hour;
+  			if(hour< 10)
+    				hourstring="0"+hourstring;
+            		
+			let minute= d.getUTCMinutes();
+			let minutestring= ""+minute;
+  			if(minute< 10)
+    				minutestring="0"+minutestring;
+            		    
+			let second= d.getUTCMilliseconds()/1000.0;
+			let secondstring= ""+second;
+  			if(second< 10)
+    				secondstring="0"+secondstring
+			    
+			var dt= d.getFullYear()+"-"+monthstring+"-"+daystring+"T"+hourstring+":"+minutestring+":"+secondstring+"Z";
+			ts.value= dt;
+		};
+
+			setEventTime();
+
+function doMySubmit() {
+    var id= document.getElementById("id").value;
+    var l;
+    try {
+    	l= document.getElementById("location").value;
+    }
+    catch(ex) {
+	l="0,0";
+    }
+    var dt= document.getElementById("timestamp").value;
+    
+    if(l== undefined || l== null || l=="")
+		l="0,0";
+    json= '{ "id":"'+id+'"'+', "location":"'+l +'"'+', "event_timestamp":"'+dt +'"';
+    id++;
+    document.getElementById("id").value= id;
+    setEventTime();
+	<%- getFields %>;
+	json+= "}";
+	
+    postJSON(json);
+  }
+
+  function postJSON(json) {
+                        if (window.XMLHttpRequest) {
+                                try {
+                                        req = new XMLHttpRequest();
+                                } catch (e) {
+                                        req = false;
+                                }
+                                // branch for IE/Windows ActiveX version
+                        } else {
+                                if (window.ActiveXObject) {
+                                        try {
+                                                req = new ActiveXObject("Msxml2.XMLHTTP");
+                                        } catch (e) {
+                                                try {
+                                                        req = new ActiveXObject("Microsoft.XMLHTTP");
+                                                } catch (e) {
+                                                        req = false;
+                                                }
+                                        }
+                                }
+                        }
+                        if (req) {
+                                req.onreadystatechange = jsonSent;
+                                req.open("GET", "senddata?json="+json, true);
+                                req.setRequestHeader("Content-type", "application/json"); 
+								req.send();                      
+					            //req.send(json);
+                        } else {
+                                alert("req== false");
+                        }
+                }
+
+				function jsonSent() {
+                        console.log("JSON sent: "+json);
+                }
+  </script>
+
+</body>
+</html>
