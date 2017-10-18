@@ -4,12 +4,11 @@ export CLUSTER_URL=$(dcos config show core.dcos_url)
 	dcos package install --yes --cli dcos-enterprise-cli
 	dcos package install --yes cassandra --package-version=1.0.25-3.0.10
 	dcos package install --yes kafka --package-version=1.1.19.1-0.10.1.0
-	dcos package install --yes beta-elastic --package-version=1.0.13-5.4.1-beta --options=elastic_config.json
-	dcos package install --options=kibana_config.json --yes beta-kibana --package-version=1.0.13-5.4.1-beta
+	dcos package install --yes elastic --package-version=2.0.0-5.5.1 --options=elastic-config.json
+	dcos package install --options=kibana-config.json --yes kibana --package-version=2.0.0-5.5.1
 
 	dcos package repo add --index=0 edgelb-aws https://edge-lb-infinity-artifacts.s3.amazonaws.com/autodelete7d/master/edgelb/stub-universe-edgelb.json
 	dcos package repo add --index=0 edgelb-pool-aws https://edge-lb-infinity-artifacts.s3.amazonaws.com/autodelete7d/master/edgelb-pool/stub-universe-edgelb-pool.json
-	dcos package install dcos-enterprise-cli --yes --cli
 	dcos security org service-accounts keypair edgelb-private-key.pem edgelb-public-key.pem
 	dcos security org service-accounts create -p edgelb-public-key.pem -d "edgelb service account" edgelb-principal
 	dcos security org groups add_user superusers edgelb-principal
@@ -46,6 +45,7 @@ sed -ie "s@CLUSTER_URL_TOKEN@$CLUSTER_URL@g;"  config.tmp
 cp versions/ui-config.json ui-config.tmp
 sed -ie "s@PUBLIC_SLAVE_ELB_HOSTNAME@$PUBLICELBHOST@g; s@PUBLICNODEIP@$PUBLICNODEIP@g;"  ui-config.tmp
 sed -ie "s@CLUSTER_URL_TOKEN@$DCOS_URL@g;"  ui-config.tmp
+sed -ie "s@PUBLIC_IP_TOKEN@$PUBLICNODEIP@g;"  ui-config.tmp
 
 cp versions/elastic-config.json elastic-config.tmp
 sed -ie "s@PUBLIC_SLAVE_ELB_HOSTNAME@$PUBLICELBHOST@g; s@PUBLICNODEIP@$PUBLICNODEIP@g;"  elastic-config.tmp

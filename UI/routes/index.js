@@ -96,6 +96,14 @@ router.get('/bgimage.html', function(req, res, next) {
   res.render('bgimage', { title: 'DCOS AppStudio' });
 });
 
+router.get('/version.html', function(req, res, next) {
+  let appsecret= process.env.APPSECRET;
+  if(appsecret==undefined) {
+    appsecret="Secret undefined. Please set the APPSECRET environment variable.";
+  }
+
+  res.render('version', { secret: appsecret});
+});
 
 router.get('/zeppelin.html', function(req, res, next) {
 let obj= require("/"+process.env.APPDIR+"/zeppelin-notebook.json");
