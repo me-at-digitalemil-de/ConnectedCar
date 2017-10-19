@@ -21,13 +21,7 @@ export CLUSTER_URL=$(dcos config show core.dcos_url)
 	until dcos edgelb ping; do sleep 1; done
 	dcos edgelb config edge-lb-pool-direct.yaml
 echo
-if  [[ $1 == http* ]] 
-then
-	export PUBLICELBHOST=$(echo $1 | awk -F/ '{print $3}')
-else
-echo $1 | awk -F/ '{print $3}'
-	export PUBLICELBHOST=$(echo $1 | awk -F/ '{print $1}')
-fi
+
 echo Determing public node ip...
 export PUBLICNODEIP=$(./findpublic_ips.sh | head -1 | sed "s/.$//" )
 echo Public node ip: $PUBLICNODEIP 
@@ -43,12 +37,10 @@ sed -ie "s@PUBLIC_IP_TOKEN@$PUBLICNODEIP@g;"  config.tmp
 sed -ie "s@CLUSTER_URL_TOKEN@$CLUSTER_URL@g;"  config.tmp
 
 cp versions/ui-config.json ui-config.tmp
-sed -ie "s@PUBLIC_SLAVE_ELB_HOSTNAME@$PUBLICELBHOST@g; s@PUBLICNODEIP@$PUBLICNODEIP@g;"  ui-config.tmp
 sed -ie "s@CLUSTER_URL_TOKEN@$DCOS_URL@g;"  ui-config.tmp
 sed -ie "s@PUBLIC_IP_TOKEN@$PUBLICNODEIP@g;"  ui-config.tmp
 
 cp versions/elastic-config.json elastic-config.tmp
-sed -ie "s@PUBLIC_SLAVE_ELB_HOSTNAME@$PUBLICELBHOST@g; s@PUBLICNODEIP@$PUBLICNODEIP@g;"  elastic-config.tmp
 
 
 seconds=0
