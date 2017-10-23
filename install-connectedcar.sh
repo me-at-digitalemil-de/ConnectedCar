@@ -7,6 +7,9 @@ export CLUSTER_URL=$(dcos config show core.dcos_url)
 	dcos package install --yes elastic --package-version=2.0.0-5.5.1 --options=elastic-config.json
 	dcos package install --options=kibana-config.json --yes kibana --package-version=2.0.0-5.5.1
 
+
+    EDGELB="$(dcos task edgelb | wc -l)"
+	if [ "$EDGELB" -lt "3" ]; then
 	dcos package repo add --index=0 edgelb-aws https://edge-lb-infinity-artifacts.s3.amazonaws.com/autodelete7d/master/edgelb/stub-universe-edgelb.json
 	dcos package repo add --index=0 edgelb-pool-aws https://edge-lb-infinity-artifacts.s3.amazonaws.com/autodelete7d/master/edgelb-pool/stub-universe-edgelb-pool.json
 	dcos security org service-accounts keypair edgelb-private-key.pem edgelb-public-key.pem
@@ -20,6 +23,8 @@ export CLUSTER_URL=$(dcos config show core.dcos_url)
 	echo "Waiting for edge-lb to come up ..."
 	until dcos edgelb ping; do sleep 1; done
 	dcos edgelb config edge-lb-pool-direct.yaml
+	fi
+
 echo
 
 echo Determing public node ip...
@@ -66,3 +71,4 @@ done
 open http://$PUBLICNODEIP
 rm config.tmp
 rm config.tmpe
+dcos marathon app add cc_actor.json
