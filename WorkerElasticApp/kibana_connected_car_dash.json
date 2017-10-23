@@ -1,0 +1,23 @@
+[
+  {
+      "title": "Connected Car",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"04902140-35a5-11e7-9c03-cdd1c71c3733\",\"panelIndex\":1,\"row\":1,\"size_x\":12,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"28660f70-35a6-11e7-9c03-cdd1c71c3733\",\"panelIndex\":2,\"row\":6,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"col\":5,\"id\":\"62a23700-35aa-11e7-a295-efc553fcb2b2\",\"panelIndex\":3,\"row\":6,\"size_x\":4,\"size_y\":4,\"type\":\"visualization\"},{\"col\":9,\"id\":\"3377e0a0-35b0-11e7-a295-efc553fcb2b2\",\"panelIndex\":4,\"row\":6,\"size_x\":4,\"size_y\":4,\"type\":\"visualization\"}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-1\":{\"mapCenter\":[37.33044712408894,-122.069993019104],\"mapZoom\":14},\"P-2\":{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":3,\"direction\":\"desc\"}}}},\"P-3\":{\"vis\":{\"legendOpen\":false}}}",
+      "version": 1,
+      "timeRestore": true,
+      "timeTo": "now",
+      "timeFrom": "now-15m",
+      "refreshInterval": {
+        "display": "10 seconds",
+        "pause": false,
+        "section": 1,
+        "value": 10000
+      },
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+  }
+]

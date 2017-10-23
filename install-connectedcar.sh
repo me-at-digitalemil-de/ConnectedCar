@@ -67,8 +67,8 @@ until $(curl --output /dev/null --silent --head --fail http://$PUBLICNODEIP); do
     printf '.'
     sleep 5
 done
+dcos marathon app add cc_actor.json
 ./permissions.sh connected-car-config.jsontemplate
 open http://$PUBLICNODEIP
 rm config.tmp
 rm config.tmpe
-dcos marathon app add cc_actor.json
