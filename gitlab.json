@@ -9,7 +9,7 @@
     [
       "hostname",
       "CLUSTER",
-      "10.0.3.49"
+      "10.0.3.217"
     ]
   ],
   "container": {
@@ -21,7 +21,8 @@
           "VIP_0": "/gitlab:80"
         },
         "protocol": "tcp",
-        "servicePort": 10103
+        "servicePort": 10103,
+        "name": "web"
       },
       {
         "containerPort": 443,

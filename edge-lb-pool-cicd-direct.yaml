@@ -1,0 +1,34 @@
+---
+pools:
+  - name: cicd
+    count: 1
+    haproxy:
+      frontends:
+        - bindPort: 10080
+          protocol: HTTP
+          linkBackend:
+            defaultBackend: gitlab
+        - bindPort: 10000
+          protocol: HTTP
+          linkBackend:
+            defaultBackend: jenkins
+      backends:
+        - name: gitlab
+          protocol: HTTP
+          servers:
+            - framework:
+                value: marathon
+              task:
+                value: gitlab
+              port:
+                name: web
+        - name: jenkins
+          protocol: HTTP
+          servers:
+            - framework:
+                value: marathon
+              task:
+                value: jenkins
+              port:
+                name: nginx
+        

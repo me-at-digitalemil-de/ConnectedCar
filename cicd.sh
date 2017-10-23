@@ -6,8 +6,21 @@ export APPLOWERCASE=connectedcar
 export DCOS_URL=$(dcos config show core.dcos_url)
 echo DCOS_URL: $DCOS_URL
 
-dcos package install --yes marathon-lb --package-version=1.10.1
+dcos package install --yes --cli dcos-enterprise-cli
 dcos package install --yes jenkins --package-version=3.2.3-2.60.2
+dcos package repo add --index=0 edgelb-aws https://edge-lb-infinity-artifacts.s3.amazonaws.com/autodelete7d/master/edgelb/stub-universe-edgelb.json
+dcos package repo add --index=0 edgelb-pool-aws https://edge-lb-infinity-artifacts.s3.amazonaws.com/autodelete7d/master/edgelb-pool/stub-universe-edgelb-pool.json
+dcos security org service-accounts keypair edgelb-private-key.pem edgelb-public-key.pem
+dcos security org service-accounts create -p edgelb-public-key.pem -d "edgelb service account" edgelb-principal
+dcos security org groups add_user superusers edgelb-principal
+dcos security secrets create-sa-secret --strict edgelb-private-key.pem edgelb-principal edgelb-secret
+rm -f edgelb-private-key.pem
+rm -f edgelb-public-key.pem
+dcos package install --options=edgelb-options.json edgelb --yes
+dcos package install edgelb-pool --cli --yes
+echo "Waiting for edge-lb to come up ..."
+until dcos edgelb ping; do sleep 1; done
+dcos edgelb config edge-lb-pool-cicd-direct.yaml
 
 echo Determing public node ip...
 export PUBLICNODEIP=$(./findpublic_ips.sh | head -1 | sed "s/.$//" )
@@ -28,8 +41,8 @@ then
         exit -1
 fi
 echo ---------------
-cp gitlab.json.template gitlab.json
 
+cp gitlab.json.template gitlab.json
 sed -ie "s@\$PINNEDNODE@$PRIVATENODEIP@g;" gitlab.json
 
 sed  '/gitlab/d' /etc/hosts >./hosts
@@ -40,16 +53,22 @@ sudo mv hosts /etc/hosts
 echo Installing gitlab...
 dcos marathon app add gitlab.json
 
-until $(curl --output /dev/null --silent --head --fail http://gitlab.$APPLOWERCASE.mesosphere.io); do
+until $(curl --output /dev/null --silent --head --fail http://gitlab.$APPLOWERCASE.mesosphere.io:10080); do
     printf '.'
     sleep 5
 done
+
+
+	
+echo "Waiting for edge-lb to come up ..."
+until dcos edgelb ping; do sleep 1; done
+dcos edgelb config edge-lb-pool-cicd-direct.yaml
 
 echo
 echo I am going to open a browser window to gitlab. Please set the root user password there to \"rootroot\" and confirm it with \"rootroot\"
 echo Afterwards please logon to gitlab \(in the browser\) as user \"root\" with password \"rootroot\"
 echo When done please come back.
-open http://gitlab.$APPLOWERCASE.mesosphere.io
+open http://gitlab.$APPLOWERCASE.mesosphere.io:10080
 read -p "Press key when you set the password and are logged in as root." -n1 -s 
 echo
 echo On the bottom of the gitlab webpage is a green button \"New Project\". Please press it.
@@ -73,7 +92,7 @@ read dir
 echo Now I am going to clone the repo and install the app. This will take a couple of minutes, please come back after the browser opened a window with the running app.
 mkdir -p $dir
 cd $dir
-git clone http://root@gitlab.$APPLOWERCASE.mesosphere.io/root/$APP.git
+git clone http://root@gitlab.$APPLOWERCASE.mesosphere.io:10080/root/$APP.git
 cd $APP
 ./install-$APPLOWERCASE.sh 
 echo

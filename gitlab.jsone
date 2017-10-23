@@ -21,7 +21,8 @@
           "VIP_0": "/gitlab:80"
         },
         "protocol": "tcp",
-        "servicePort": 10103
+        "servicePort": 10103,
+        "name": "web"
       },
       {
         "containerPort": 443,
