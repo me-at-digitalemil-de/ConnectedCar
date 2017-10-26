@@ -28,9 +28,8 @@
 				"type": "DOCKER",
 				"volumes": [],
 				"docker": {
-					"image": "digitalemil/mypublicrepo:cc-workerelastic-v1.0.0",
-					"network": "HOST",
-					"portMappings": [],
+					"image": "mesosphere/dcosappstudio:connectedcar-safeharbor-workerelastic-v1.0.0",
+					"portMappings": null,
 					"privileged": false,
 					"parameters": [],
 					"forcePullImage": false
@@ -93,9 +92,8 @@
 				"type": "DOCKER",
 				"volumes": [],
 				"docker": {
-					"image": "digitalemil/mypublicrepo:dcosappstudio-kafkaingester-v1.0.0",
-					"network": "HOST",
-					"portMappings": [],
+					"image": "mesosphere/dcosappstudio:connectedcar-safeharbor-kafkaingester-v1.0.0",
+					"portMappings": null,
 					"privileged": false,
 					"parameters": [],
 					"forcePullImage": false
@@ -158,9 +156,8 @@
 				"type": "DOCKER",
 				"volumes": [],
 				"docker": {
-					"image": "digitalemil/mypublicrepo:dcosappstudio-cassandraingester-v1.0.0",
-					"network": "HOST",
-					"portMappings": [],
+					"image": "mesosphere/dcosappstudio:connectedcar-safeharbor-cassandraingester-v1.0.0",
+					"portMappings": null,
 					"privileged": false,
 					"parameters": [],
 					"forcePullImage": false
@@ -230,8 +227,7 @@
 				"type": "DOCKER",
 				"volumes": [],
 				"docker": {
-					"image": "digitalemil/mypublicrepo:dcosappstudio-messagelistener-v2.0.0",
-					"network": "HOST",
+					"image": "mesosphere/dcosappstudio:connectedcar-safeharbor-messagelistener-v1.0.0",
 					"portMappings": null,
 					"privileged": false,
 					"parameters": [],
@@ -294,8 +290,7 @@
 				"type": "DOCKER",
 				"volumes": [],
 				"docker": {
-					"image": "digitalemil/mypublicrepo:dcosappstudio-messagevalidator-v1.0.0",
-					"network": "HOST",
+					"image": "mesosphere/dcosappstudio:connectedcar-safeharbor-messagevalidator-v1.0.0",
 					"portMappings": null,
 					"privileged": false,
 					"parameters": [],
@@ -358,8 +353,7 @@
 				"type": "DOCKER",
 				"volumes": [],
 				"docker": {
-					"image": "digitalemil/mypublicrepo:dcosappstudio-messagetransformer-v1.0.0",
-					"network": "HOST",
+					"image": "mesosphere/dcosappstudio:connectedcar-safeharbor-messagetransformer-v1.0.0",
 					"portMappings": null,
 					"privileged": false,
 					"parameters": [],
@@ -431,9 +425,8 @@
 				"type": "DOCKER",
 				"volumes": [],
 				"docker": {
-					"image": "digitalemil/mypublicrepo:cc-ui-v1.0.0",
-					"network": "HOST",
-					"portMappings": [],
+					"image": "mesosphere/dcosappstudio:connectedcar-safeharbor-ui-v1.0.0",
+					"portMappings": null,
 					"privileged": false,
 					"parameters": [],
 					"forcePullImage": false
@@ -507,7 +500,7 @@
           "type": "MESOS",
           "volumes": [],
           "docker": {
-              "image": "mesosphere/dcosappstudio:frauddetection-safeharbor-uiservice-v1.0.0",
+              "image": "mesosphere/dcosappstudio:connectedcar-safeharbor-uiservice-v1.0.0",
               "portMappings": null,
               "privileged": false,
               "parameters": [],
@@ -574,9 +567,8 @@
 				"type": "DOCKER",
 				"volumes": [],
 				"docker": {
-					"image": "digitalemil/mypublicrepo:dcosappstudio-loader-v1.0.0",
-					"network": "HOST",
-					"portMappings": [],
+					"image": "mesosphere/dcosappstudio:connectedcar-safeharbor-loader-v1.0.0",
+					"portMappings": null,
 					"privileged": false,
 					"parameters": [],
 					"forcePullImage": false

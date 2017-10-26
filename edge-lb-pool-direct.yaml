@@ -24,6 +24,10 @@ pools:
           protocol: HTTP
           linkBackend:
             defaultBackend: kibana
+        - bindPort: 10081
+          protocol: HTTP
+          linkBackend:
+            defaultBackend: loader
       backends:
         - name: gitlab
           protocol: HTTP
@@ -73,3 +77,12 @@ pools:
                 match: REGEX
               port:
                 name: kibana
+        - name: loader
+          protocol: HTTP
+          servers:
+            - framework:
+                value: marathon
+              task:
+                value: loader.management.dcosappstudio-connectedcar
+              port:
+                name: loader
