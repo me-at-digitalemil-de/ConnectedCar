@@ -490,7 +490,7 @@
       "cmd": null,
       "args": null,
       "user": null,
-      "env": {  },
+      "env": {  "APPDIR":"/opt/app"},
   "instances": 1,
       "cpus": 0.1,
       "mem": 128,
