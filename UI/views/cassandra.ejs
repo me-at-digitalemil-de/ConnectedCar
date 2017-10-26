@@ -9,7 +9,7 @@
 <body bgcolor="#fff">
 	<div id="alldiv" class="Aligner">
 		<div id="text" class="Aligner-item">
-			<input id="cql" type="text" style="width: 79%;height: 5%;font-size: 100%;background-color: #F3F3F5;" value="Select * from <%= keyspace %>.<%= table %>"></input>
+			<input id="cql" type="text" style="width: 79%;height: 5%;font-size: 100%;background-color: #F3F3F5;" value="Select * from <%= keyspace %>.<%= table %> limit 10"></input>
 			<button onclick="doExec()" style="width: 20%;height: 5%;font-size: 100%;background-color: #F3F3F5;">Execute</button><p> 
 			<textarea rows="40" id="data" style="width: 100%;height:75%;font-size: 100%;background-color: #F3F3F5;" data-role="none"></textarea><p>
 			<button onclick="document.getElementById('data').value='';" style="width: 20%;height: 5%;font-size: 100%;background-color: #F3F3F5;">Clear</button><p> 

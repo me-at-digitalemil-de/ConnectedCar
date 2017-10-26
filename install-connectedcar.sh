@@ -41,13 +41,6 @@ cp connected-car-config.jsontemplate config.tmp
 sed -ie "s@PUBLIC_IP_TOKEN@$PUBLICNODEIP@g;"  config.tmp
 sed -ie "s@CLUSTER_URL_TOKEN@$CLUSTER_URL@g;"  config.tmp
 
-cp versions/ui-config.json ui-config.tmp
-sed -ie "s@CLUSTER_URL_TOKEN@$DCOS_URL@g;"  ui-config.tmp
-sed -ie "s@PUBLIC_IP_TOKEN@$PUBLICNODEIP@g;"  ui-config.tmp
-
-cp versions/elastic-config.json elastic-config.tmp
-
-
 seconds=0
 OUTPUT=0
 sleep 5

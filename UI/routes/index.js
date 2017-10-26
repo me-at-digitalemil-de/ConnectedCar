@@ -92,6 +92,11 @@ function handleImageDownload(err) {
 });
 });     
 
+router.get('/arch.html', function(req, res, next) {
+  res.render('arch', { title: 'DCOS AppStudio' });
+});
+
+
 router.get('/bgimage.html', function(req, res, next) {
   res.render('bgimage', { title: 'DCOS AppStudio' });
 });

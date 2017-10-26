@@ -20,7 +20,7 @@ dcos package install --options=edgelb-options.json edgelb --yes
 dcos package install edgelb-pool --cli --yes
 echo "Waiting for edge-lb to come up ..."
 until dcos edgelb ping; do sleep 1; done
-dcos edgelb config edge-lb-pool-cicd-direct.yaml
+dcos edgelb config edge-lb-pool-direct.yaml
 
 echo Determing public node ip...
 export PUBLICNODEIP=$(./findpublic_ips.sh | head -1 | sed "s/.$//" )
