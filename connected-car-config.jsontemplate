@@ -25,13 +25,13 @@
 			"backoffFactor": 1.15,
 			"maxLaunchDelaySeconds": 3600,
 			"container": {
-				"type": "DOCKER",
+				"type": "MESOS",
 				"volumes": [],
 				"docker": {
 					"image": "mesosphere/dcosappstudio:connectedcar-safeharbor-workerelastic-v1.0.0",
 					"portMappings": null,
 					"privileged": false,
-					"parameters": [],
+					"parameters": null,
 					"forcePullImage": false
 				}
 			},
@@ -89,13 +89,13 @@
 			"backoffFactor": 1.15,
 			"maxLaunchDelaySeconds": 3600,
 			"container": {
-				"type": "DOCKER",
+				"type": "MESOS",
 				"volumes": [],
 				"docker": {
 					"image": "mesosphere/dcosappstudio:connectedcar-safeharbor-kafkaingester-v1.0.0",
 					"portMappings": null,
 					"privileged": false,
-					"parameters": [],
+					"parameters": null,
 					"forcePullImage": false
 				}
 			},
@@ -153,13 +153,13 @@
 			"backoffFactor": 1.15,
 			"maxLaunchDelaySeconds": 3600,
 			"container": {
-				"type": "DOCKER",
+				"type": "MESOS",
 				"volumes": [],
 				"docker": {
 					"image": "mesosphere/dcosappstudio:connectedcar-safeharbor-cassandraingester-v1.0.0",
 					"portMappings": null,
 					"privileged": false,
-					"parameters": [],
+					"parameters": null,
 					"forcePullImage": false
 				}
 			},
@@ -224,13 +224,13 @@
 			"backoffFactor": 1.15,
 			"maxLaunchDelaySeconds": 3600,
 			"container": {
-				"type": "DOCKER",
+				"type": "MESOS",
 				"volumes": [],
 				"docker": {
 					"image": "mesosphere/dcosappstudio:connectedcar-safeharbor-messagelistener-v1.0.0",
 					"portMappings": null,
 					"privileged": false,
-					"parameters": [],
+					"parameters": null,
 					"forcePullImage": true
 				}
 			},
@@ -287,13 +287,13 @@
 			"backoffFactor": 1.15,
 			"maxLaunchDelaySeconds": 3600,
 			"container": {
-				"type": "DOCKER",
+				"type": "MESOS",
 				"volumes": [],
 				"docker": {
 					"image": "mesosphere/dcosappstudio:connectedcar-safeharbor-messagevalidator-v1.0.0",
 					"portMappings": null,
 					"privileged": false,
-					"parameters": [],
+					"parameters": null,
 					"forcePullImage": true
 				}
 			},
@@ -350,13 +350,13 @@
 			"backoffFactor": 1.15,
 			"maxLaunchDelaySeconds": 3600,
 			"container": {
-				"type": "DOCKER",
+				"type": "MESOS",
 				"volumes": [],
 				"docker": {
 					"image": "mesosphere/dcosappstudio:connectedcar-safeharbor-messagetransformer-v1.0.0",
 					"portMappings": null,
 					"privileged": false,
-					"parameters": [],
+					"parameters": null,
 					"forcePullImage": true
 				}
 			},
@@ -422,13 +422,13 @@
 			"backoffFactor": 1.15,
 			"maxLaunchDelaySeconds": 3600,
 			"container": {
-				"type": "DOCKER",
+				"type": "MESOS",
 				"volumes": [],
 				"docker": {
-					"image": "mesosphere/dcosappstudio:connectedcar-safeharbor-ui-v1.0.0",
+					"image": "mesosphere/dcosappstudio:connectedcar-safeharbor-ui-v1.0.1",
 					"portMappings": null,
 					"privileged": false,
-					"parameters": [],
+					"parameters": null,
 					"forcePullImage": false
 				}
 			},
@@ -449,8 +449,6 @@
 				"maximumOverCapacity": 1
 			},
 			"labels": {
-				"HAPROXY_GROUP": "external",
-				"HAPROXY_0_VHOST": "PUBLIC_IP_TOKEN",
 				"DCOS_SERVICE_SCHEME": "http",
 				"DCOS_SERVICE_NAME": "appstudio-ui-connectedcar",
 				"DCOS_SERVICE_PORT_INDEX": "0"
@@ -503,7 +501,7 @@
               "image": "mesosphere/dcosappstudio:connectedcar-safeharbor-uiservice-v1.0.1",
               "portMappings": null,
               "privileged": false,
-              "parameters": [],
+              "parameters": null,
               "forcePullImage": true
           }
       },
@@ -564,13 +562,13 @@
 			"backoffFactor": 1.15,
 			"maxLaunchDelaySeconds": 3600,
 			"container": {
-				"type": "DOCKER",
+				"type": "MESOS",
 				"volumes": [],
 				"docker": {
 					"image": "mesosphere/dcosappstudio:connectedcar-safeharbor-loader-v1.0.0",
 					"portMappings": null,
 					"privileged": false,
-					"parameters": [],
+					"parameters": null,
 					"forcePullImage": false
 				}
 			},
@@ -591,8 +589,6 @@
 				"maximumOverCapacity": 1
 			},
 			"labels": {
-				"HAPROXY_GROUP": "external",
-				"HAPROXY_0_VHOST": "PUBLIC_IP_TOKEN"
 			},
 			"acceptedResourceRoles": null,
 			"ipAddress": null,

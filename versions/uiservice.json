@@ -24,7 +24,7 @@
               "image": "digitalemil/mypublicrepo:dcosappstudio-uiservice-v1.0.0",
                           "portMappings": null,
               "privileged": false,
-              "parameters": [],
+              "parameters": null,
               "forcePullImage": true
           }
       },
