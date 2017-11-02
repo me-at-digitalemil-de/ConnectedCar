@@ -26,10 +26,14 @@ app.get("/", function(req, res, next) {
 
 app.get("/version", function(req, res, next) {
   console.log("version: "+versionobj.version);
-    res.send(versionobj.version);
+    let appsecret= process.env.APPSECRET;
+    if(appsecret==undefined) {
+      appsecret="No Secret.";
+    }
+
+    res.send(versionobj.version+","+appsecret);
     res.end();
   });
-
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

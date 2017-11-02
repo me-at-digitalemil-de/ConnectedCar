@@ -500,7 +500,7 @@
           "type": "MESOS",
           "volumes": [],
           "docker": {
-              "image": "mesosphere/dcosappstudio:connectedcar-safeharbor-uiservice-v1.0.0",
+              "image": "mesosphere/dcosappstudio:connectedcar-safeharbor-uiservice-v1.0.1",
               "portMappings": null,
               "privileged": false,
               "parameters": [],
