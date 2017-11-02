@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 
-let versionobj= require('/opt/app/version.json'); 
+let versionobj= require(process.env.APPDIR+'/version.json'); 
 var app = express();
 
 // view engine setup
