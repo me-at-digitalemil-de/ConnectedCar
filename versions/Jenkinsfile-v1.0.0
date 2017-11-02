@@ -38,6 +38,6 @@ def gitCommit() {
             credentialsId: 'dcos-token',
             filename: 'versions/uiservice.json',
             id: 'dcosappstudio-connectedcar/management/uiservice',
-            docker: "${env.DOCKERHUB_REPO}:connectedcar-uiservice-v1.0.0"
+            mesos: "${env.DOCKERHUB_REPO}:connectedcar-uiservice-v1.0.0"
         )
     }
