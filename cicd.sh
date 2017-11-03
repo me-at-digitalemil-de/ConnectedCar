@@ -50,11 +50,12 @@ echo "$PUBLICNODEIP gitlab.$APPLOWERCASE.mesosphere.io" >>./hosts
 echo We are going to add "$PUBLICNODEIP gitlab.$APPLOWERCASE.mesosphere.io" to your /etc/hosts. Therefore we need your local password.
 sudo mv hosts /etc/hosts
 
+dcos package install --options=kibana-config.json --yes kibana --package-version=2.0.0-5.5.1
+dcos package install --yes elastic --package-version=2.0.0-5.5.1 --options=elastic-config.json
+
 echo Installing gitlab...
 dcos marathon app add gitlab.json
 
-dcos package install --options=kibana-config.json --yes kibana --package-version=2.0.0-5.5.1
-dcos package install --yes elastic --package-version=2.0.0-5.5.1 --options=elastic-config.json
 dcos package install --yes cassandra --package-version=1.0.25-3.0.10
 dcos package install --yes kafka --package-version=1.1.19.1-0.10.1.0
 

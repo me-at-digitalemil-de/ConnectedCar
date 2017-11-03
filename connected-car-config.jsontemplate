@@ -495,12 +495,11 @@
       "backoffFactor": 1.15,
       "maxLaunchDelaySeconds": 3600,
       "container": {
-          "type": "DOCKER",
+          "type": "MESOS",
           "volumes": [],
           "docker": {
               "image": "mesosphere/dcosappstudio:connectedcar-safeharbor-uiservice-v1.0.1",
-              "network": "HOST",
-			  "portMappings": null,
+              "portMappings": null,
               "privileged": false,
               "parameters": null,
               "forcePullImage": true

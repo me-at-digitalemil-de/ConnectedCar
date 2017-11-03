@@ -37,7 +37,7 @@ def gitCommit() {
             forceUpdate: true,
             credentialsId: 'dcos-token',
             filename: 'versions/uiservice.json',
-            id: 'dcosappstudio-connectedcar/management/uiservice',
-            docker: "${env.DOCKERHUB_REPO}:connectedcar-uiservice-v2.0.0"
+            id: '/dcosappstudio-connectedcar/management/uiservice',
+            mesos: "${env.DOCKERHUB_REPO}:connectedcar-uiservice-v2.0.0"
         )
     }
