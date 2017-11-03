@@ -21,7 +21,7 @@
           "type": "DOCKER",
           "volumes": [],
           "docker": {
-              "image": "digitalemil/mypublicrepo:dcosappstudio-uiservice-v1.0.0",
+              "image": "mesosphere/dcosappstudio:connectedcar-safeharbor-uiservice-v1.0.1",
               "network": "HOST",          
               "portMappings": null,
               "privileged": false,
