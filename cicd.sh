@@ -51,15 +51,7 @@ echo "Waiting for edge-lb to come up ..."
 until dcos edgelb ping; do sleep 1; done
 dcos edgelb config edge-lb-pool-direct.yaml
 
-until $(curl --output /dev/null --silent --head --fail http://gitlab.$APPLOWERCASE.mesosphere.io:10080); do
-    printf '.'
-    sleep 5
-done
-
-
 	
-echo "Waiting for edge-lb to come up ..."
-until dcos edgelb ping; do sleep 1; done
 
 echo
 echo I am going to open a browser window to gitlab. Please set the root user password there to \"rootroot\" and confirm it with \"rootroot\"

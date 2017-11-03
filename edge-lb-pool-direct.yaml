@@ -16,6 +16,10 @@ pools:
           protocol: HTTP
           linkBackend:
             defaultBackend: connected-car-ui
+        - bindPort: 8081
+          protocol: HTTP
+          linkBackend:
+            defaultBackend: connected-car-uiservice
         - bindPort: 10500
           protocol: TCP
           linkBackend:
@@ -65,6 +69,15 @@ pools:
                 value: ui.management.dcosappstudio-connectedcar
               port:
                 name: connected-car-socket
+        - name: connected-car-uiservice
+          protocol: HTTP
+          servers:
+            - framework:
+                value: marathon
+              task:
+                value: uiservice.management.dcosappstudio-connectedcar
+              port:
+                name: connected-car-uiservice
         - name: kibana
           protocol: HTTP
           miscStrs:
