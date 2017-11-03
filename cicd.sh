@@ -53,6 +53,13 @@ sudo mv hosts /etc/hosts
 echo Installing gitlab...
 dcos marathon app add gitlab.json
 
+dcos package install --yes --cli dcos-enterprise-cli
+dcos package install --options=kibana-config.json --yes kibana --package-version=2.0.0-5.5.1
+dcos package install --yes elastic --package-version=2.0.0-5.5.1 --options=elastic-config.json
+dcos package install --yes cassandra --package-version=1.0.25-3.0.10
+dcos package install --yes kafka --package-version=1.1.19.1-0.10.1.0
+
+
 until $(curl --output /dev/null --silent --head --fail http://gitlab.$APPLOWERCASE.mesosphere.io:10080); do
     printf '.'
     sleep 5

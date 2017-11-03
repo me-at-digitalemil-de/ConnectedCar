@@ -199,7 +199,7 @@ var downloadBGImage = function(callback){
   });
 };
 
-downloadBGImage(handleImageDownload);
+//downloadBGImage(handleImageDownload);
 console.log('before router');
 router.get('/', function(req, res, next) {
   let pn= process.env.PUBLICNODE+":10339";
