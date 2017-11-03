@@ -77,7 +77,7 @@ pools:
               task:
                 value: uiservice.management.dcosappstudio-connectedcar
               port:
-                name: connected-car-uiservice
+                name: myp
         - name: kibana
           protocol: HTTP
           miscStrs:

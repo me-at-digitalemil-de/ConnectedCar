@@ -84,6 +84,7 @@ cd $dir
 git clone http://root@gitlab.$APPLOWERCASE.mesosphere.io:10080/root/$APP.git
 cd $APP
 echo
+./install-$APPLOWERCASE.sh
 echo We are setting up Jenkins now. 
 read -p "Press button when ready." -n1 -s
 echo
@@ -113,4 +114,3 @@ echo Next we need to define the repository. Please enter http://gitlab.marathon.
 read -p "Press button when ready." -n1 -s
 echo We are all set now. Thank you for your patience. You can now start build-pipelines by executing the upgrade.sh or downgrade.sh script in the folder where we cloned the repo into.
 echo Good luck!
-./install-$APPLOWERCASE.sh
