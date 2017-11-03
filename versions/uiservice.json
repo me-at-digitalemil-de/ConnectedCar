@@ -54,13 +54,4 @@
       "residency": null,
       "secrets": {},
       "taskKillGracePeriodSeconds": null,
-      "portDefinitions": [{
-          "port": 10000,
-          "protocol": "tcp",
-          "name": "myp",
-          "labels": {
-              "VIP_0": "dcosappstudio-connectedcaruiservice:80"
-          }
-      }],
-      "requirePorts": true
   }

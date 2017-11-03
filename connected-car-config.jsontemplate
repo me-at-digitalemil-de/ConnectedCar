@@ -407,7 +407,7 @@
 				"CASSANDRA_SERVICE": "node.cassandra.l4lb.thisdcos.directory:9042",
 				"PUBLICNODE": "PUBLIC_IP_TOKEN",
 				"CLUSTER_URL": "CLUSTER_URL_TOKEN",
-				"UISERVICE":"http://PUBLIC_IP_TOKEN:8081"
+				"UISERVICE":"http://dcosappstudio-connectedcar.l4lb.thisdcos.directory:80"
 			},
 			"instances": 1,
 			"cpus": 0.1,
