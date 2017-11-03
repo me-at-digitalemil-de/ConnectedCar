@@ -106,6 +106,7 @@ router.get('/bgimage.html', function(req, res, next) {
 router.get('/version.html', function(req, res, next) {
   let appsecret= "";
   let version= "";
+  /*
   try {
     request.get(process.env.UISERVICE+"/version", function(err, response, body) {
       if(err==null) {
@@ -151,7 +152,11 @@ router.get('/version.html', function(req, res, next) {
 
     console.log("CATCH Version "+version);  
     res.render('version', { secret: appsecret, version: version});  
-  }});
+  }
+*/
+res.render('version', { secret: appsecret, version: version});  
+
+});
 
 router.get('/zeppelin.html', function(req, res, next) {
 let obj= require("/"+process.env.APPDIR+"/zeppelin-notebook.json");
